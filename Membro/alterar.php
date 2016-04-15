@@ -584,13 +584,13 @@ $aut = Autenticador::instanciar();
  			<br/>
  			
  				<div class='lead'>
-			   		<div class='col-sm-offset-5 col-sm-4'>
+			   		<div class='col-sm-offset-3 col-sm-6'>
 			   			<a href='../Membro/pesquisa.php'>
-			   				<button type='button' class='col-sm-offset-1 btn btn-primary col-sm-3' name='cancel'>Cancelar</button>
+			   				<button type='button' class='col-sm-offset-1 btn btn-primary col-sm-2' name='cancel'>Cancelar</button>
 			   			</a>
-			   			<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-3' <?php echo $habilita; ?> data-toggle='modal' data-target='.perf'>Perfil</button>
-			   			<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-3' <?php echo $habilita; ?> data-toggle='modal' data-target='.hist'>historico</button>
-						<button type='submit' class='btn btn-primary col-sm-offset-1 col-sm-3' id='acao' name='acao' value='alterar'>Salvar</button>	   	
+			   			<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-2' <?php echo $habilita; ?> data-toggle='modal' data-target='.perf'>Perfil</button>
+			   			<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-2' <?php echo $habilita; ?> data-toggle='modal' data-target='.hist'>historico</button>
+						<button type='submit' class='btn btn-primary col-sm-offset-1 col-sm-2' id='acao' name='acao' value='alterar'>Salvar</button>	   	
 					</div>
 				</div>
 			<br/>
