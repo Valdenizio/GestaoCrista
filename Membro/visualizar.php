@@ -479,13 +479,13 @@ echo  "
  			<br/>
  			
  				<div class='lead'>
-			   		<div class='col-sm-offset-5 col-sm-4'>
+			   		<div class='col-sm-offset-3 col-sm-6'>
 			   			<a href='../Membro/resultado.php?mem=".$paramPesquisa1."'&igj=".$paramPesquisa2.">
-			   				<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-3' name='cancel'>Voltar</button>
+			   				<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-2' name='cancel'>Voltar</button>
  			   			</a>
-			   			<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-3' data-toggle='modal' data-target='#modal' >Excluir</button>
-				   		<button type='submit' class='btn btn-primary col-sm-offset-1 col-sm-3' id='acao' name='acao' value='alterar'>Alterar</button>
-						<button type='submit' class='btn btn-primary col-sm-offset-1 col-sm-3' formtarget='_blank' formaction='Imprime.php?id=".$idmembro."' >Imprimir</button>
+			   			<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-2' data-toggle='modal' data-target='#modal' >Excluir</button>
+				   		<button type='submit' class='btn btn-primary col-sm-offset-1 col-sm-2' id='acao' name='acao' value='alterar'>Alterar</button>
+						<button type='submit' class='btn btn-primary col-sm-offset-1 col-sm-2' formtarget='_blank' formaction='Imprime.php?id=".$idmembro."' >Imprimir</button>
 	 				</div>
 				</div>
 			<br/>
