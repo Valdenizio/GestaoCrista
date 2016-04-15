@@ -534,14 +534,48 @@ $aut = Autenticador::instanciar();
 					</div>
 				</div>
 				<br/>
-				<div class='lead'>
-			   		<div class='col-sm-2'>
-			   			<label for='historico' class='control-label'>Histórico:</label>
-			   		</div>
-			   		<div class='col-sm-7'>
-			   			<textarea rows='3' class='form-control' id='historico' name='historico'><?php echo $historicoantigomin; ?>
-			   			</textarea>	   	
-					</div>
+				<div class='lead col-sm-9'>
+			   		<?php
+						$pdoh = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+						     	$sqlh = "select * from historico_membro where id_membro = {$id_membro} order by dt_historico";
+						     	$stmh = $pdoh->query($sqlh);
+						     	
+						     	//echo "<br><br>";var_dump($sqlh);
+						     	
+						     	if ($stmh->rowCount(PDO::FETCH_ASSOC)>0) {
+						     		echo "	<div class='lead  col-sm-offset-4'>
+						 						<h3><strong>Histórico do Membro</strong></h3>
+						 					</div>
+											<table class='table table-striped table-bordered'>
+											<tr>
+												<td class='col-sm-1 text-center'><strong>Data do fato</strong></td>
+												<td class='col-sm-3 text-center'><strong>Descrição do Fato</strong></td>
+												<td class='col-sm-1'/>
+											</tr>";
+						     			
+						     	
+						     		while($dadosHist = $stmh->fetch(PDO::FETCH_ASSOC)){
+						     	
+						     			//Criptografando parametros enviados via get
+						     			$idhistorico=base64_encode($dadosHist['id_historico']);
+						     			//$nmmembro=base64_encode($dadosHist[]);
+						     			//$idigreja=base64_encode($igreja);
+						     	
+						     			echo "<tr>
+											<td class='text-center'>".$dadosHist['dt_historico']."</td>
+											<td>".$dadosHist['ds_historico']."</td>
+											<td class='text-center'>
+											<center><form action='../Membro/controle.php' method='post' target='_self'>
+											<input type='text' style='display:none' id='idhist' name='idhist' value='".$dadosHist['id_historico']."'>
+	  										<input type='text' style='display:none' id='id_membro' name='id_membro' value='".$dadosHist['id_membro']."'>
+		  									<button type='submit' class='btn btn-default col-sm-offset-1 btn-xs btn-acao' name='acao' value='exhist'>Excluir</button>
+											</form></center></td>
+											</tr>"; 
+				     		}
+				     		echo "</table>";
+				     	}
+					?>
+				</div>
 				</div>
 			<br/>
  			<br/>				
@@ -554,7 +588,8 @@ $aut = Autenticador::instanciar();
 			   			<a href='../Membro/pesquisa.php'>
 			   				<button type='button' class='col-sm-offset-1 btn btn-primary col-sm-3' name='cancel'>Cancelar</button>
 			   			</a>
-			   			<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-3' <?php echo $habilita; ?> data-toggle='modal' data-target='#modal'>Perfil</button>
+			   			<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-3' <?php echo $habilita; ?> data-toggle='modal' data-target='.perf'>Perfil</button>
+			   			<button type='button' class='btn btn-primary col-sm-offset-1 col-sm-3' <?php echo $habilita; ?> data-toggle='modal' data-target='.hist'>historico</button>
 						<button type='submit' class='btn btn-primary col-sm-offset-1 col-sm-3' id='acao' name='acao' value='alterar'>Salvar</button>	   	
 					</div>
 				</div>
@@ -565,8 +600,7 @@ $aut = Autenticador::instanciar();
         <!-- </p> -->
       </div>
 
-    </div><!-- /.container -->";
-?>
+    </div><!-- /.container -->
 
     <!-- JavaScript e Bootstrap
     ================================================== -->
@@ -601,12 +635,12 @@ $aut = Autenticador::instanciar();
 		}
    </script>
    
-   <div class='modal fade' id='modal' tabindex='-1' role='dialog' aria-labelledby="gridSystemModalLabel">
+   <div class='modal fade perf in' id='modal' tabindex='-1' role='dialog' aria-labelledby="myModalPerf">
   		<div class='modal-dialog' role='dialog'>
     		<div class='modal-content'>
       			<div class='modal-header'>
         			<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
-        			<h4 class='modal-title' id='myModalLabel'>Registro de Perfil</h4>
+        			<h4 class='modal-title' id='myModalPerf'>Registro de Perfil</h4>
       			</div>
       			<form method='post' action='../Membro/controle.php' target='_self'>
       				<div class='modal-body'>
@@ -694,6 +728,48 @@ $aut = Autenticador::instanciar();
         				<button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
         				<button type='submit' class='btn btn-primary' name='acao' value='svperfil'>Salvar</button>
       					<button type='submit' class='btn btn-primary' name='acao' value='experfil'>Excluir</button>
+      				</div>
+      			</form>
+    		</div>
+    		<br>
+    		<br>
+    		<br>
+  		</div>
+	</div>
+   
+   <div class='modal fade hist in' id='modal' tabindex='-1' role='dialog' aria-labelledby="myModalHist">
+  		<div class='modal-dialog' role='dialog'>
+    		<div class='modal-content'>
+      			<div class='modal-header'>
+        			<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+        			<h4 class='modal-title' id='myModalHist'>cadastro de histórico</h4>
+      			</div>
+      			<form method='post' action='../Membro/controle.php' target='_self'>
+      				<div class='modal-body'>
+        				<input type='text' style='display:none' id='id_membro' name='id_membro' value='<?php echo $idmembro; ?>'>
+        				<div class="row">	
+	        				<div class="col-sm-2">
+	    						<label for="Hist" class="control-label">Data do Fato:<b>*</b></label>
+	    					</div>
+		    				<div class="col-sm-4">
+		      					<input type="text" class="form-control data" id="dt_historico" name="dt_historico" required>
+		    				</div>
+	    				</div>
+	    				<br>
+	    				<div class="row">
+		    				<div class="col-sm-2">
+		    					<label for="membro" class="control-label">Senha:<b>*</b></label>
+		    				</div>
+		    				<div class="col-sm-5">
+		      					<input type="text" class="form-control" id="ds_historico" name="ds_historico" required>
+		    				</div>
+						</div>
+	    				<br>
+					</div>
+ 				  		<br>
+      				<div class='modal-footer'>
+        				<button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+        				<button type='submit' class='btn btn-primary' name='acao' value='svhist'>Salvar</button>
       				</div>
       			</form>
     		</div>

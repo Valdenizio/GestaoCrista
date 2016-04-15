@@ -152,6 +152,53 @@ switch($_REQUEST['acao']) {
 	
 	} break;
 	
+	case 'svhist': {
+	
+		# Uso do singleton para instanciar
+		# apenas um objeto de autenticação
+		# e esconder a classe real de autenticação
+		$aut = CrudMembro::instanciar();
+	
+		# efetua o processo de autenticação
+		//if()
+		//var_dump("entrou aqui");
+		if ($aut->svhist($_REQUEST['id_membro'], $_REQUEST['dt_historico'], $_REQUEST['ds_historico'])) {
+			$idmembro=base64_encode($_REQUEST['id_membro']);
+			# redireciona o usuário para dentro do sistema
+			header('location: /GestaoCrista/Membro/visualizar.php?id_membro='.$idmembro);
+	
+		}
+		else {
+			# envia o usuário de volta para
+			# o form de login
+			header('location: /GestaoCrista/Membro/visualizar.php?res=err');
+		}
+	
+	} break;
+	
+	case 'exhist': {
+	
+		# Uso do singleton para instanciar
+		# apenas um objeto de autenticação
+		# e esconder a classe real de autenticação
+		$aut = CrudMembro::instanciar();
+	
+		# efetua o processo de autenticação
+		//if()
+		//var_dump("entrou aqui");
+		if ($aut->exhist($_REQUEST['idhist'])) {
+			$idmembro=base64_encode($_REQUEST['id_membro']);
+			# redireciona o usuário para dentro do sistema
+			header('location: /GestaoCrista/Membro/visualizar.php?id_membro='.$idmembro);
+	
+		}
+		else {
+			# envia o usuário de volta para
+			# o form de login
+			header('location: /GestaoCrista/Membro/visualizar.php?res=err');
+		}
+	
+	} break;
 }
 	
 ?>

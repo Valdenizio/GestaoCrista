@@ -228,5 +228,28 @@ class ManterMembro extends CrudMembro {
 		}
 	
 	}
+	
+	public function svhist($id_membro, $dthist, $dshist){
+		$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+		$sqlGravaHist = "INSERT INTO HISTORICO_MEMBRO(dt_historico, ds_historico,
+					id_membro)
+					VALUES(
+					'".$dthist."',
+					'".$dshist."',
+					'".$id_membro."')";
+			$stmh = $pdo->query($sqlGravaHist);
+			//var_dump($sqlGravar);
+			return true;
+	}
+	
+	public function exhist($id_historico){
+		$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+		$sql = "delete
+		from historico_membro
+		where id_historico ='{$id_historico}'";
+		$stm = $pdo->query($sql);
+		//var_export($stm);
+		return true;
+	}
 }
 ?>

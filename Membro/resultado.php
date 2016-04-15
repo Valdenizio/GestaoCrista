@@ -69,25 +69,25 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 										</tr>";
 	  						
 	  							  						
-	  						while($dados = $stm->fetch(PDO::FETCH_ASSOC)){
-	   							
-	  							//Criptografando parametros enviados via get
-	  							$idmembro=base64_encode($dados['id_membro']);
-	   							$nmmembro=base64_encode($nome);
-	   							$idigreja=base64_encode($igreja);
-	   							
-	   							echo "<tr>
-										<td>".$dados['nm_membro']."</td>
-										<td>".$dados['nm_igreja']."</td>
-										<td class='text-center'>
-										<center><form action='../Membro/visualizar.php' method='get' target='_self'>
-										<input type='text' style='display:none' id='id_membro' name='id_membro' value='".$idmembro."'>
-	  									<input type='text' style='display:none' id='membro' name='membro' value='".$nmmembro."'>
-										<input type='text' style='display:none' id='igreja' name='igreja' value='".$idigreja."'>
-										<button type='submit' class='btn btn-default col-sm-offset-1 btn-xs btn-acao' name='acao' value='visualizar'>Visualizar</button>
-										</form></center></td>
-										</tr>";
-							}
+		  						while($dados = $stm->fetch(PDO::FETCH_ASSOC)){
+		   							
+		  							//Criptografando parametros enviados via get
+		  							$idmembro=base64_encode($dados['id_membro']);
+		   							$nmmembro=base64_encode($nome);
+		   							$idigreja=base64_encode($igreja);
+		   							
+		   							echo "<tr>
+											<td>".$dados['nm_membro']."</td>
+											<td>".$dados['nm_igreja']."</td>
+											<td class='text-center'>
+											<center><form action='../Membro/visualizar.php' method='get' target='_self'>
+											<input type='text' style='display:none' id='id_membro' name='id_membro' value='".$idmembro."'>
+		  									<input type='text' style='display:none' id='membro' name='membro' value='".$nmmembro."'>
+											<input type='text' style='display:none' id='igreja' name='igreja' value='".$idigreja."'>
+											<button type='submit' class='btn btn-default col-sm-offset-1 btn-xs btn-acao' name='acao' value='visualizar'>Visualizar</button>
+											</form></center></td>
+											</tr>";
+								}
 
 	  						}else{
 	  							echo "	<div class='alert alert-info'>
