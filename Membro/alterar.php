@@ -420,13 +420,13 @@ $aut = Autenticador::instanciar();
 			   			<label for='filhos' class='control-label'>Homens:</label>
 			   		</div>
 			   		<div class='col-sm-1'>
-			   			<input type='number' class='form-control' min=0 id='homens' name='homens'  value='<?php echo $nrfilhos; ?>'required>	   	
+			   			<input type='number' class='form-control' min=0 id='homens' name='homens'  value='<?php echo $nrfilhos; ?>' required>	   	
 					</div>
 					<div class='col-sm-offset-1 col-sm-2'>
 						<label for='filhas' class='control-label'>Mulher:<b>*</b></label>
 			   		</div>
 			   		<div class='col-sm-1'>
-			   			<input type='number' class='form-control' min=0 id='mulher' name='mulher'  value='<?php echo $nrfilhas; ?>'required>	   	
+			   			<input type='number' class='form-control' min=0 id='mulher' name='mulher'  value='<?php echo $nrfilhas; ?>' required>	   	
 					</div>
 				</div>
 				<br/>
@@ -439,7 +439,7 @@ $aut = Autenticador::instanciar();
 			   			<label for='conversao' class='control-label'>Conversão:</label>
 			   		</div>
 			   		<div class='col-sm-2'>
-			   			<input type='text' class='form-control' id='conversao' name='conversao'  value='<?php echo $dtconversao; ?>'>	   	
+			   			<input type='text' class='form-control data' id='conversao' name='conversao'  value='<?php echo $dtconversao; ?>'>	   	
 					</div>
 					<div class='col-sm-2'>
 						<label for='lugarconv' class='control-label'>Lugar:</label>
@@ -454,7 +454,7 @@ $aut = Autenticador::instanciar();
 			   			<label for='bataguas' class='control-label'>Bat. Aguas:</label>
 			   		</div>
 			   		<div class='col-sm-2'>
-			   			<input type='text' class='form-control' id='bataguas' name='bataguas' value='<?php echo $dtbatismoaguas; ?>'>	   	
+			   			<input type='text' class='form-control data' id='bataguas' name='bataguas' value='<?php echo $dtbatismoaguas; ?>'>	   	
 					</div>
 					<div class='col-sm-2'>
 						<label for='lugarbat' class='control-label'>Lugar:</label>
@@ -478,7 +478,7 @@ $aut = Autenticador::instanciar();
 			   			<label for='bates' class='control-label'>Bat. E. S.:</label>
 			   		</div>
 			   		<div class='col-sm-2'>
-			   			<input type='text' class='form-control' id='bates' name='bates' value='<?php echo $dtbates; ?>'>	   	
+			   			<input type='text' class='form-control data' id='bates' name='bates' value='<?php echo $dtbates; ?>'>	   	
 					</div>
 					<div class='col-sm-2'>
 						<label for='lugares' class='control-label'>Lugar:</label>
@@ -576,7 +576,7 @@ $aut = Autenticador::instanciar();
 				     	}
 					?>
 				</div>
-				</div>
+				
 			<br/>
  			<br/>				
 			<br/>
@@ -620,7 +620,7 @@ $aut = Autenticador::instanciar();
 	       	    phone = target.value.replace(/\D/g, '');
 	       	    element = $(target);
 	       	    element.unmask();
-	       	    if(phone.length > 10) {
+	       	    if(phone.length > 15) {
 	       	        element.mask("(99) 99999-999?9");
 	       	    } else {
 	       	        element.mask("(99) 9999-9999?9");  

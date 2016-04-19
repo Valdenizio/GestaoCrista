@@ -398,16 +398,7 @@ else {
 					</div>
 				</div>
 				<br/>
-				<div class="lead">
-			   		<div class="col-sm-2">
-			   			<label for="historico" class="control-label">Histórico:</label>
-			   		</div>
-			   		<div class="col-sm-7">
-			   			<textarea rows="3" class="form-control" id="historico" name="historico">
-			   			</textarea>	   	
-					</div>
-				</div>
-			<br/>
+				
  			<br/>				
 			<br/>
  			<br/>

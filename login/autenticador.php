@@ -55,11 +55,11 @@ class AutenticadorEmBanco extends Autenticador {
 			
 			$dados = $stm->fetch(PDO::FETCH_ASSOC);
 			$usuario = new Usuario();
-			$usuario->setLogin($dados['login']);
-			$usuario->setId($dados['id']);
-			$usuario->setPerfil($dados['perfil']);
+			$usuario->setLogin($dados['ds_login']);
+			$usuario->setId($dados['id_usuario']);
+			$usuario->setPerfil($dados['id_perfil']);
 			//$usuario->setSenha($dados['senha']);
-			$usuario->setIgreja($dados['igreja']);
+			$usuario->setIgreja($dados['id_igreja']);
 
 			$sess->set('usuario', $dados);
 			

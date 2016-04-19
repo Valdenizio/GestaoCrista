@@ -235,7 +235,7 @@ else {
 	 				<label for='membrecia' class='control-label'>Data de membrecia:</label>
 	    		</div>
 	    		<div class='col-sm-2'>
-	      			<input type='date' class='form-control data' id='membrecia' name='membrecia' value='<?php echo $dtMembrecia;?>' readonly='readonly'>
+	      			<input type='text' class='form-control data' id='membrecia' name='membrecia' value='<?php echo $dtMembrecia;?>' readonly='readonly'>
 	    		</div>
 	    	</div>
  			<br/>
@@ -278,7 +278,7 @@ else {
 						<label for='dtnascimento' class='control-label'>Data de nascimento:</label>
 			   		</div>
 			   		<div class='col-sm-2'>
-			   			<input type='date' class='form-control data' id='dtnascimento' name='dtnascimento' value='<?php echo $dtNascimento;?>' readonly='readonly'>	   	
+			   			<input type='text' class='form-control data' id='dtnascimento' name='dtnascimento' value='<?php echo $dtNascimento;?>' readonly='readonly'>	   	
 					</div>
 				</div>
 			<br/>
@@ -378,7 +378,7 @@ else {
 			   			<label for='conversao' class='control-label'>Conversão:</label>
 			   		</div>
 			   		<div class='col-sm-2'>
-			   			<input type='date' class='form-control' id='conversao' name='conversao' value='<?php echo $dtconversao;?>' readonly='readonly'>	   	
+			   			<input type='text' class='form-control' id='conversao' name='conversao' value='<?php echo $dtconversao;?>' readonly='readonly'>	   	
 					</div>
 					<div class='col-sm-2'>
 						<label for='lugarconv' class='control-label'>Lugar:</label>
@@ -393,7 +393,7 @@ else {
 			   			<label for='bataguas' class='control-label'>Bat. Aguas:</label>
 			   		</div>
 			   		<div class='col-sm-2'>
-			   			<input type='date' class='form-control' id='bataguas' name='bataguas' value='<?php echo $dtbatismoaguas;?>' readonly='readonly'>	   	
+			   			<input type='text' class='form-control' id='bataguas' name='bataguas' value='<?php echo $dtbatismoaguas;?>' readonly='readonly'>	   	
 					</div>
 					<div class='col-sm-2'>
 						<label for='lugarbat' class='control-label'>Lugar:</label>
@@ -417,7 +417,7 @@ else {
 			   			<label for='bates' class='control-label'>Bat. E. S.:</label>
 			   		</div>
 			   		<div class='col-sm-2'>
-			   			<input type='date' class='form-control' id='bates' name='bates' value='<?php echo $dtbates;?>' readonly='readonly'>	   	
+			   			<input type='text' class='form-control' id='bates' name='bates' value='<?php echo $dtbates;?>' readonly='readonly'>	   	
 					</div>
 					<div class='col-sm-2'>
 						<label for='lugares' class='control-label'>Lugar:</label>
@@ -454,7 +454,7 @@ else {
 			   			<label for='datamemant' class='control-label'>Data Membrecia:</label>
 			   		</div>
 			   		<div class='col-sm-2'>
-			   			<input type='date' class='form-control data' id='datamemant' name='datamemant' value='<?php echo $dtantigomin;?>' readonly='readonly'>	   	
+			   			<input type='text' class='form-control data' id='datamemant' name='datamemant' value='<?php echo $dtantigomin;?>' readonly='readonly'>	   	
 					</div>
 					<div class='col-sm-2'>
 						<label for='lugarant' class='control-label'>Lugar:</label>

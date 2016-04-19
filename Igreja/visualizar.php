@@ -161,7 +161,7 @@ echo  "<br>
 			   			<label for='inauguracao' class='control-label'>Data de Inauguração:</label>
 					</div>
 			   		<div class='col-sm-3'>
-			   			<input type='date' class='form-control data' id='inauguracao' name='inauguracao' value='".$dtInauguracao."' readonly='readonly'>	   	
+			   			<input type='text' class='form-control data' id='inauguracao' name='inauguracao' value='".$dtInauguracao."' readonly='readonly'>	   	
  					</div>
 				</div>
 			<br/>	

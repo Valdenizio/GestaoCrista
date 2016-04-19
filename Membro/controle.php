@@ -25,7 +25,7 @@ switch($_REQUEST['acao']) {
 						$_REQUEST['lugarconv'],$_REQUEST['bataguas'],$_REQUEST['lugarbat'],
 						$_REQUEST['ministro'],$_REQUEST['bates'],$_REQUEST['lugares'],
 						$_REQUEST['nomemin'],$_REQUEST['cargoant'],$_REQUEST['datamemant'],
-						$_REQUEST['lugarant'],$_REQUEST['pastor'],$_REQUEST['historico'])) {
+						$_REQUEST['lugarant'],$_REQUEST['pastor'])) {
 			
 			
 							
@@ -93,7 +93,7 @@ switch($_REQUEST['acao']) {
 						$_REQUEST['lugarconv'],$_REQUEST['bataguas'],$_REQUEST['lugarbat'],
 						$_REQUEST['ministro'],$_REQUEST['bates'],$_REQUEST['lugares'],
 						$_REQUEST['nomemin'],$_REQUEST['cargoant'],$_REQUEST['datamemant'],
-						$_REQUEST['lugarant'],$_REQUEST['pastor'],$_REQUEST['historico'])) {
+						$_REQUEST['lugarant'],$_REQUEST['pastor'])) {
 			# redireciona o usuário para dentro do sistema
 			header('location: /GestaoCrista/Membro/pesquisa.php?resultado=3');
 			//var_export($_REQUEST['id_igreja']);

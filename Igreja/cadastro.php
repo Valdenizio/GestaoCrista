@@ -14,8 +14,7 @@ if ($aut->esta_logado()) {
 	if ($usuario ['id_perfil']!=1) {
 		$aut->expulsar();
 	}
-}
-else {
+}else {
 	$aut->expulsar();
 }
 

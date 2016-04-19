@@ -62,6 +62,7 @@ else {
 	            	}
 	            ?>
 	            <li><a href='../Membro/pesquisa.php'><strong>Membro</strong></a></li>
+	            <li><a href='../Movimento/pesquisa.php'><strong>Movimento</strong></a></li>
 	          </ul>
 	         	<div class="collapse navbar-collapse collapse navbar-right">
 	          		<ul class="nav navbar-nav">

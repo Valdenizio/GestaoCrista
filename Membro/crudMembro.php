@@ -25,13 +25,13 @@ abstract class CrudMembro {
 						$endereco,$email,$telefone,$pai,$mae,$conjugue,$homens,
 						$mulher,$conversao,$lugarconv,$bataguas,$lugarbat,$ministro,
 						$bates,$lugares,$nomemin,$cargoant,$datamemant,$lugarant,
-						$pastor,$historico);
+						$pastor);
 	public abstract function alterar($id_membro,$nrlocal,$igreja,$cargo,$dtmembrecia,
 						$membro,$rg,$cpf,$escolaridade,$dtnascimento,$sexo,$civil,
 						$endereco,$email,$telefone,$pai,$mae,$conjugue,$homens,
 						$mulher,$conversao,$lugarconv,$bataguas,$lugarbat,$ministro,
 						$bates,$lugares,$nomemin,$cargoant,$datamemant,$lugarant,
-						$pastor,$historico);
+						$pastor);
 	public abstract function excluir($id_membro);
 	public abstract function experfil($id_membro);
 	public abstract function svperfil($id_membro, $login, $senha, $id_perfil);
@@ -46,7 +46,7 @@ class ManterMembro extends CrudMembro {
 						$endereco,$email,$telefone,$pai,$mae,$conjugue,$homens,
 						$mulher,$conversao,$lugarconv,$bataguas,$lugarbat,$ministro,
 						$bates,$lugares,$nomemin,$cargoant,$datamemant,$lugarant,
-						$pastor,$historico) {
+						$pastor) {
 		$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
 		$sql = "select *
 		from membro
@@ -63,7 +63,7 @@ class ManterMembro extends CrudMembro {
 			$sqlGravar = "INSERT INTO MEMBRO(nm_membro, dt_nascimento, cd_sexo, cd_escolaridade, nm_pai, nm_mae, nm_conjugue,
 					cd_estado_civil, nr_rg, nr_cpf, nr_filhos_homens, nr_filhos_mulheres, ds_endereco, nr_telefone, ds_email,
 					nr_local, id_igreja, id_cargo, dt_membrecia, nm_antigo_minist, ds_cargo_antigo_min, dt_membrecia_antigo,
-					ds_lugar_aguas, nm_pastor, ds_historico, dt_conversao, ds_lugar_conversao, dt_bat_aguas, nm_ministro, dt_bat_es,
+					ds_lugar_aguas, nm_pastor, dt_conversao, ds_lugar_conversao, dt_bat_aguas, nm_ministro, dt_bat_es,
 					ds_lugar_es, ds_lugar_antigo_minist) 
 					VALUES(
 					'".$membro."', 
@@ -90,7 +90,6 @@ class ManterMembro extends CrudMembro {
 					'".$datamemant."',
 					'".$lugarbat."',
 					'".$pastor."',
-					'".$historico."',
 					'".$conversao."',
 					'".$lugarconv."',
 					'".$bataguas."',
@@ -111,7 +110,7 @@ class ManterMembro extends CrudMembro {
 						$endereco,$email,$telefone,$pai,$mae,$conjugue,$homens,
 						$mulher,$conversao,$lugarconv,$bataguas,$lugarbat,$ministro,
 						$bates,$lugares,$nomemin,$cargoant,$datamemant,$lugarant,
-						$pastor,$historico) {
+						$pastor) {
 				
 				$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
 				$sql = "select *
@@ -150,7 +149,6 @@ class ManterMembro extends CrudMembro {
 					dt_membrecia_antigo='".$datamemant."',
 					ds_lugar_aguas='".$lugarbat."',
 					nm_pastor='".$pastor."',
-					ds_historico='".$historico."',
 					dt_conversao='".$conversao."',
 					ds_lugar_conversao='".$lugarconv."',
 					dt_bat_aguas='".$bataguas."',
