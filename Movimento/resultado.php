@@ -33,8 +33,8 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 	  						if (isset($_REQUEST['tpmov'])){ 
 	  							$tpmovimento=$_REQUEST['tpmov'];
 	  						}else{	
-	  							if (isset($_REQUEST['p1'])){
-	  								$igreja=$_REQUEST['p1'];
+	  							if (isset($_REQUEST['p4'])){
+	  								$tpmovimento=$_REQUEST['p4'];
 	  							}else{
 	  								$tpmovimento=null;
 	  							}
@@ -57,7 +57,22 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 	  						}else{
 	  							$dtf=$_REQUEST['p3'];
 	  						}
-	  							  						
+	  						//substr("abcdef", -3, 1);// retorna "d"
+	  						//11/11/1111
+	  						/* $datainicio['a'] = substr($dti, -4);
+	  						$datainicio['m'] = substr($dti, -7,2);
+	  						$datainicio['d'] = substr($dti, -10,2); */
+	  						
+	  						
+	  						
+	  						
+	  						
+	  						/* $datafim['a'] = substr($dti, -4);
+	  						$datafim['m'] = substr($dti, -7,2);
+	  						$datafim['d'] = substr($dti, -10,2); */
+	  						
+	  						//var_dump ($datafim);
+	  						
 	  						$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
 	  						
 	  						$sqli = "select igj.nm_igreja, igj.id_igreja
@@ -65,22 +80,19 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 	  						
 	  						$stmi = $pdo->query($sqli);
 	  						
-	  						$sql = "select mov.id_movimento, mov.dt_movimento, mov.dt_reg_movimento,
+	  						/* DATE_FORMAT( mov.dt_movimento, '%d/%m/%Y' ) */
+	  						
+	  						$sql = "select mov.id_movimento, DATE_FORMAT( mov.dt_movimento, '%d/%m/%Y' ) as data_movimento,
+	  								DATE_FORMAT( mov.dt_reg_movimento, '%d/%m/%Y' ) as dt_reg_movimento,
     								mov.vl_movimento, tpm.ds_tipo_movimento, igj.nm_igreja
 	  								from movimento mov left join tipo_movimento tpm 
     								on mov.id_tipo_movimento=tpm.id_tipo_movimento
     								inner join igreja igj on mov.id_igreja=igj.id_igreja
-    								where mov.dt_movimento>='{$dti}' and mov.dt_movimento>='{$dtf}'";
+    								where mov.id_igreja ='{$igreja}' and mov.dt_movimento >= STR_TO_DATE('".$dti."','%d/%m/%Y')
+	  								and mov.dt_movimento <= STR_TO_DATE('".$dtf."','%d/%m/%Y')";
 	  						
 	  						if ($tpmovimento!=null){
 	  							$sql=$sql." and tpm.id_tipo_movimento ='{$tpmovimento}')";
-	  							if ($igreja!=null){
-	  								$sql=$sql." and mov.id_igreja ='{$igreja}'";
-	  							}
-	  						}else{
-	  							if ($igreja!=null){
-	  								$sql=$sql." and mov.id_igreja ='{$igreja}'";
-	  							}
 	  						}
 	  							
 	  						$sql=$sql." order by dt_movimento";
@@ -105,23 +117,34 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 	  							  						
 		  						while($infomv = $stm->fetch(PDO::FETCH_ASSOC)){
 		   							
-		  							//Criptografando parametros enviados via get
+		  							//$dti=;
 		  							
-		   							echo "<tr>
-											<td>".$infomv['dt_movimento']."</td>
-											<td>".$infomv['dt_reg_movimento']."</td>
-	  										<td>".$infomv['ds_tipo_movimento']."</td>
-											<td class='text-center'>
-											<center><form action='../Movimento/visualizar.php' method='get' target='_self'>
-											<input type='text' style='display:none' id='id_mov' name='id_mov' value='".$infomv['id_movimento']."'>
-		  									<input type='text' style='display:none' id='igreja' name='igreja' value='".$igreja."'>
-	  										<input type='text' style='display:none' id='dtmovinicio' name='dtmovinicio' value='".$dti."'>
-	  										<input type='text' style='display:none' id='dtmovfim' name='dtmovfim' value='".$dtf."'>
-											<input type='text' style='display:none' id='tpmovimento' name='tpmovimento' value='".$tpmovimento."'>
-											<button type='submit' class='btn btn-default col-sm-offset-1 btn-xs btn-acao' name='acao' value='visualizar'>Visualizar</button>
-											</form></center></td>
+		  							/* $dtmov['a'] = substr($infomv['dt_movimento'], -4);
+		  							$dtmov['m'] = substr($infomv['dt_movimento'], -7,2);
+		  							$dtmov['d'] = substr($infomv['dt_movimento'], -10,2);
+		  							var_dump ($infomv['dt_movimento']); */
+		  							
+		  							/* if (($datainicio['a']<=$dtmov['a'] && $datafim['a']>=$dtmov['a']) && 
+		  								($datainicio['m']<=$dtmov['m'] && $datafim['m']>=$dtmov['m']) && 
+		  								($datainicio['d']<=$dtmov['d'] && $datafim['d']>=$dtmov['d'])) { */
+		  									
+		  									echo "<tr>
+													<td>".$infomv['data_movimento']."</td>
+													<td>".$infomv['dt_reg_movimento']."</td>
+	  												<td>".$infomv['ds_tipo_movimento']."</td>
+													<td class='text-center'>
+													<form action='../Movimento/visualizar.php' method='get' target='_self'>
+													<input type='text' style='display:none' id='id_mov' name='id_mov' value='".$infomv['id_movimento']."'>
+		  											<input type='text' style='display:none' id='igreja' name='igreja' value='".$igreja."'>
+	  												<input type='text' style='display:none' id='dtmovinicio' name='dtmovinicio' value='".$dti."'>
+	  												<input type='text' style='display:none' id='dtmovfim' name='dtmovfim' value='".$dtf."'>
+													<input type='text' style='display:none' id='tpmovimento' name='tpmovimento' value='".$tpmovimento."'>
+													<button type='submit' class='btn btn-default col-sm-offset-1 btn-xs btn-acao' name='acao' value='visualizar'>Visualizar</button>
+													</form></td>
 											</tr>";
-								}
+		  									
+		  								
+		  						}
 
 	  						}else{
 	  							echo "	<div class='alert alert-info'>

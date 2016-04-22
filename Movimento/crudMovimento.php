@@ -23,7 +23,7 @@ abstract class CrudMovimento {
 	public abstract function salvar($dta,$dti, 
 						$tpm,$vlr,$igj);
 	public abstract function alterar($dta,$dti, 
-						$tpm,$vlr);
+						$tpm,$vlr,$id_movimento);
 	
 }
 
@@ -33,26 +33,17 @@ class ManterMovimento extends CrudMovimento {
 	public function salvar($dta,$dti, 
 						$tpm,$vlr,$igj) {
 		$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
-		/* $sql = "select *
-		from membro
-		where membro.nm_membro = '{$membro}' and
-		membro.dt_nascimento = '{$dtnascimento}'";
-		$stm = $pdo->query($sql); */
 		
-// 		var_dump($stm);
-		
-		/* if ($stm->rowCount() >= 1){
-			return false;
-		}
-		else { */
+		//$datamov = str_replace("/","",$dti);
 							
-			$sqlGravar = "INSERT INTO movimento(dt_movimento, dt_reg_movimento, vl_movimento, id_tipo_movimento, id_igreja) 
-					VALUES(
-					'".$dti."', 
-					'".$dta."',
-					'".$vlr."',
-					'".$tpm."',
-					'".$igj."')";
+			$sqlGravar = "INSERT INTO movimento (dt_movimento, dt_reg_movimento,
+							vl_movimento, id_tipo_movimento, id_igreja) 
+							VALUES(
+							(STR_TO_DATE( '".$dti."', '%d/%m/%Y' )), 
+							(STR_TO_DATE( '".$dta."', '%d/%m/%Y' )),
+							'".$vlr."',
+							'".$tpm."',
+							'".$igj."')";
 			
 			$stmg = $pdo->query($sqlGravar);
 			
@@ -62,25 +53,16 @@ class ManterMovimento extends CrudMovimento {
 	}
 	
 	public function alterar($dta,$dti, 
-						$tpm,$vlr) {
+						$tpm,$vlr,$id_movimento,$igreja) {
 				
-				/* $pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
-				$sql = "select *
-				from membro
-				where membro.id_membro like '%{$id_membro}%'";
-				$stm = $pdo->query($sql);
-				//var_dump($stm);
-								
-				if (!$stm->rowCount() >= 1){
-					return false;
-				}
-				else { */
+				$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+							
+				//$datamov = strtotime(str_replace("/","",$dti));
 					
 					$sqlGravar = "UPDATE movimento SET
-					dt_movimento='".$dti."',
-					dt_reg_movimento='".$dta."',
 					vl_movimento='".$vlr."',
 					id_tipo_movimento='".$tpm."'
+					id_igreja='".$igreja."'
 					where id_movimento = ".$id_movimento.";";
 					
 					$stmg = $pdo->query($sqlGravar);

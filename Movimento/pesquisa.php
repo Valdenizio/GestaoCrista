@@ -82,7 +82,7 @@ else {
 	   	 			<div class="col-sm-2">
 	   	 				<label for="membro" class="control-label">Igreja:</label>
 	   	 			</div>
-    				<div class="col-sm-3">
+    				<div class="col-sm-4">
 				   		<select class='form-control' id='igreja' name='igreja' required>
 				   				<option selected ></option>
 				   				<?php

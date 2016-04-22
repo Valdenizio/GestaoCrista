@@ -34,13 +34,14 @@ switch($_REQUEST['ac']) {
 		# Uso do singleton para instanciar
 		# apenas um objeto de autenticação
 		# e esconder a classe real de autenticação
-		$aut = CrudMembro::instanciar();
+		$aut = CrudMovimento::instanciar();
 
 		# efetua o processo de autenticação
 		//if()
 		//var_dump("entrou aqui");
-			if ($aut->alterar($_REQUEST['dta'],$_REQUEST['dti'],
-								$_REQUEST['tpm'],$_REQUEST['vlr'],$_REQUEST['igj'])) {
+			if ($aut->alterar($_REQUEST['dtatual'],$_REQUEST['dtmovimento'], 
+						$_REQUEST['tpmovimento'],$_REQUEST['valor'],
+						$_REQUEST['igreja'],$_REQUEST['id_mov'])) {
 						# redireciona o usuário para dentro do sistema
 				header('location: /GestaoCrista/Movimento/pesquisa.php?resultado=1');
 			}
