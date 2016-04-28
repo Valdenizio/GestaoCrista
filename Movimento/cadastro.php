@@ -22,8 +22,12 @@ else {
 date_default_timezone_set('America/Sao_Paulo');
 $dataatual = date("d/m/Y");
 $diaatual = date("d");
+/* $mesatual = date("m");
 
 //$igj=$_SESSION['igreja']
+
+function verifData() */
+
 
 ?>
 <!DOCTYPE html>
@@ -76,7 +80,7 @@ $diaatual = date("d");
       <div class="starter-template">
         <h2>Cadastro de Movimento</h2>
         <!-- <p>  -->
-        	<form  name="cadMovimento" onsubmit="verifData()" action="../Movimento/controle.php" method="post" target="_self">
+        	<form  name="cadMovimento" action="../Movimento/controle.php" method="post" target="_self">
         		<div class="lead">
         			<div class="col-sm-2">
     					<label for="membro" class="control-label">Data atual:</label>
@@ -88,7 +92,7 @@ $diaatual = date("d");
     					<label for="membro" class="control-label">Data do Movimento:<b>*</b></label>
     				</div>
     				<div class="col-sm-2">
-      					<input type="text" class="form-control data" id="dtmovimento" name="dtmovimento" >
+      					<input type="text" class="form-control data" id="dtmovimento" name="dtmovimento" onBlur="verifData()" >
       				</div>
       			</div>
       			<br>
@@ -164,7 +168,7 @@ $diaatual = date("d");
  			<br/>
  			<div class='lead'>
 			   		<div class='col-sm-offset-6 col-sm-7'>
-			   			<button type='submit' class='btn btn-primary col-sm-offset-1 col-sm-2' id='ac' name='ac' value='sv'>Salvar</button>	   	
+			   			<button type='submit' class='btn btn-primary col-sm-offset-1 col-sm-2' id='ac' name='ac' value='sv' >Salvar</button>	   	
 					</div>
 				</div>
  			
@@ -180,53 +184,50 @@ $diaatual = date("d");
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src='../bootstrap/js/bootstrap.min.js'></script><!-- Versão 3.3.6 -->
-	<script src='../bootstrap/jquery/1.11.1/jquery.min.js'></script><!-- Versão 1.11.1 maskmoney_2.0.1-->
-	<script src='../bootstrap/jquery/maskmoney_2.0.1/jquery.maskMoney.js'></script><!-- Versão 2.0.1-->
-	<script type="text/javascript" src="../bootstrap/js/jquery.maskedinput.1-4-1.min.js"></script><!-- Versão 1.4.1 -->
+	<script src='../bootstrap/jquery/1.11.1/jquery.min.js'></script><!-- Versão 1.11.1 -->
+	<script src='../bootstrap/jquery/maskmoney_2.0.1/jquery.maskMoney.js'></script><!-- maskmoney_2.0.1-->
+	<script src="../bootstrap/js/jquery.maskedinput.1-4-1.min.js"></script><!-- Versão 1.4.1 -->
 	<script type="text/javascript"> 
 
-	 	$(document).ready(function(){
+	 	//$(document).ready(function(){
 			$("input.data").mask("99/99/9999");
 	       	$('#valor').maskMoney();
-	    });
-	 	</script>
-		<script type="text/javascript">
+	       	$('#ac').prop("disabled", true);
+	    //});
+	 	
 		function verifData(){
 			//recupera os valores informados
 			var dtatual = document.cadMovimento.dtatual.value;
 			var dtinform = document.cadMovimento.dtmovimento.value;
-			var tpMovimento = document.cadMovimento.tpmovimento.value;
-			var valor = document.cadMovimento.valor.value;
-			var igreja = document.cadMovimento.igreja.value;
-			
 			var atual = dtatual.split("/");
 			var informada = dtinform.split("/");
 
+			//hoje=new Date()
+			
+			
 			//Valida a data informada
 			if (atual[0]>=15){
 
 				if(atual[1]>informada[1]){
-
-					alert("teste1");	
+					
+					alert("Não podem ser realizados cadastros de movimentos referentes ao mês anterior após o dia 15.");	
 					
 				}else {
-					//alert("teste2");
-					window.location.assign("/GestaoCrista/Movimento/controle.php?dta='"dtatual"'&dti='"dtinform"'&tpm='"tpMovimento"'&vlr='"valor"'&igj='"igreja"'&ac='sv');
+					//Habilita o botão Salvar
+					$('#ac').prop("disabled", false);
 					
 				}
 					
-			} else {
-				//alert("teste3");
-				window.location.assign("/GestaoCrista/Movimento/controle.php?dta='"dtatual"'&dti='"dtinform"'&tpm='"tpMovimento"'&vlr='"valor"'&igj='"igreja"'&ac='sv');
+			}else {
+				//Habilita o botão Salvar
+				$('#ac').prop("disabled", false);
 				
-			}
-			
-		}
+			} 
+				
+		} 
    </script>	
     
-		
-
-
+    
     </body>
     
 </html>

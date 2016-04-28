@@ -23,7 +23,7 @@ abstract class CrudMovimento {
 	public abstract function salvar($dta,$dti, 
 						$tpm,$vlr,$igj);
 	public abstract function alterar($dta,$dti, 
-						$tpm,$vlr,$id_movimento);
+						$tpm,$vlr,$id_movimento,$igreja);
 	
 }
 
