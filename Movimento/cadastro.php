@@ -11,12 +11,31 @@ $aut = Autenticador::instanciar();
 
 if ($aut->esta_logado()) {
 	$usuario = $aut->pegar_usuario();
-	if (isset($usuario['id_igreja'])){
-		$igjLotado=$usuario['id_igreja'];
+	if ($usuario ['id_perfil']!=1) {
+		$pdoiv = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+		$sqliv = "select igj.*
+		from igreja igj where id_igreja='{$usuario ['id_igreja']}'";
+		$stmiv = $pdoiv->query($sqliv);
+		$dadosiv = $stmiv->fetch(PDO::FETCH_ASSOC);
+		$igjVinculada="<input type='text' class='form-control' style='display:none' id='igreja' name='igreja' value='".$dadosiv['ID_IGREJA']."'>
+						<input type='text' class='form-control' id='nmigreja' name='nmigreja' value='".$dadosiv['NM_IGREJA']."' readonly='readonly'>";
+	}else{
+		$pdoiv = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+		$sqliv = "select igj.*
+				from igreja igj";
+		$stmiv = $pdoiv->query($sqliv);
+		
+		$igjVinculada="<select class='form-control' id='igreja' name='igreja' required>
+				   				<option selected ></option>";
+				   				
+				   			
+		while($dadosiv = $stmiv->fetch(PDO::FETCH_ASSOC)){
+		
+			$igjVinculada.="<option value='".$dadosiv['ID_IGREJA']."'>".$dadosiv['NM_IGREJA']."";
+		}
+		$igjVinculada.="</select>";
 	}
-	$prfUsuario=$usuario['id_perfil'];
-}
-else {
+}else {
 	$aut->expulsar();
 }
 date_default_timezone_set('America/Sao_Paulo');
@@ -101,38 +120,11 @@ function verifData() */
       				<div class='col-sm-2'>
     					<label for='igreja' class='control-label'>Igreja:</label>
     				</div>
-      					<?php 
-      						if ($prfUsuario!=1){
-      							$pdoi = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
-      							$sqli = "select * from igreja where id_igreja={$igjLotado}";
-      							$stmi = $pdoi->query($sqli);
-      							$igjDef = $stmi->fetch(PDO::FETCH_ASSOC);
-      							$igjDes = $igjDef['NM_IGREJA'];
-      							$igjId = $igjDef['ID_IGREJA'];
-      							echo "	<div class='col-sm-4'>
-      										<input type='text' class='form-control data' id='nmigreja' name='nmigreja'  value='".$igjDes."' readonly='readonly'>
-											<input type='text' class='form-control data' id='igreja' name='igreja' style='display:none' value='".$igjId."' readonly='readonly'>
-      									</div>";
-      						}else{
-      							echo "	<div class='col-sm-4'>
-										<select class='form-control' id='igreja' name='igreja'>
-				   							<option selected ></option>";
-				   				
-				   					//Recupera as Regiões cadastradas
-					   				$pdoig = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
-					   				$sqlig = "select igj.* from igreja igj";
-					   				$stmig = $pdoig->query($sqlig);
-					   				//Monta a lista de regiões conforme recuperado do banco.
-					   				while($dadosi = $stmig->fetch(PDO::FETCH_ASSOC)){
-					   						
-					   					echo "<option value='".$dadosi['ID_IGREJA']."'>".$dadosi['NM_IGREJA']."</option>";
-					   				}
-					   			
-				   				echo "</select>
-    									</div>";
-      						}
-      					?>
-      				
+    				<div class="col-sm-4">
+      					<?php 	
+					   		echo $igjVinculada;
+					   	?>
+					</div> 
     			</div>
     			<br>
     			<div class="lead">
@@ -189,11 +181,11 @@ function verifData() */
 	<script src="../bootstrap/js/jquery.maskedinput.1-4-1.min.js"></script><!-- Versão 1.4.1 -->
 	<script type="text/javascript"> 
 
-	 	//$(document).ready(function(){
+	 	$(document).ready(function(){
 			$("input.data").mask("99/99/9999");
 	       	$('#valor').maskMoney();
 	       	$('#ac').prop("disabled", true);
-	    //});
+	    });
 	 	
 		function verifData(){
 			//recupera os valores informados
@@ -202,29 +194,33 @@ function verifData() */
 			var atual = dtatual.split("/");
 			var informada = dtinform.split("/");
 
-			//hoje=new Date()
 			
-			
-			//Valida a data informada
-			if (atual[0]>=15){
-
-				if(atual[1]>informada[1]){
-					
-					alert("Não podem ser realizados cadastros de movimentos referentes ao mês anterior após o dia 15.");	
-					
-				}else {
-					//Habilita o botão Salvar
-					$('#ac').prop("disabled", false);
-					
+			//--------------------------------------------------------------------------------------------------------------------//
+			// Não permite informar movimentações do mês anterior após o dia 15 do mês corrente ou movimentações em datas futuras //
+			//--------------------------------------------------------------------------------------------------------------------//
+			//if (dtinform<>''){
+				if ((atual[1]>informada[1])||((atual[1]<informada[1])&&(informada[2]<atual[2])&&(atual[1]=='01'){
+					if (atual[0]>=15){
+						//Desabilita a opção Salvar e exibe mensagem
+						$('#ac').prop("disabled", true);
+						alert("Não podem ser realizados cadastros de movimentos referentes ao mês anterior após o dia 15.");
+					}else{
+						//Habilita a opção Salvar
+						$('#ac').prop("disabled", false);
+					}			
+				}else{
+					if ((((informada[0]>atual[0])&&(informada[1]==atual[1]))||(informada[1]>atual[1]))&& informada[0]>=1){
+						//Desabilita a opção Salvar e exibe mensagem
+						$('#ac').prop("disabled", true);
+						alert("Não é permitido informar movimentações futuras.");
+					}else{
+						//Habilita a opção Salvar
+						$('#ac').prop("disabled", false);
+					}
 				}
-					
-			}else {
-				//Habilita o botão Salvar
-				$('#ac').prop("disabled", false);
-				
-			} 
-				
-		} 
+			//}
+		}	
+			
    </script>	
     
     

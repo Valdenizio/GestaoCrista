@@ -11,9 +11,30 @@ $aut = Autenticador::instanciar();
 
 	if ($aut->esta_logado()) {
 		$usuario = $aut->pegar_usuario();
-		if (isset($usuario['id_igreja'])){
-			$igjLotado=$usuario['id_igreja'];
+	if ($usuario ['id_perfil']!=1) {
+		$pdoiv = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+		$sqliv = "select igj.*
+		from igreja igj where id_igreja='{$usuario ['id_igreja']}'";
+		$stmiv = $pdoiv->query($sqliv);
+		$dadosiv = $stmiv->fetch(PDO::FETCH_ASSOC);
+		$igjVinculada="<input type='text' class='form-control' style='display:none' id='igreja' name='igreja' value='".$dadosiv['ID_IGREJA']."'>
+						<input type='text' class='form-control' id='nmigreja' name='nmigreja' value='".$dadosiv['NM_IGREJA']."' readonly='readonly'>";
+	}else{
+		$pdoiv = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+		$sqliv = "select igj.*
+				from igreja igj";
+		$stmiv = $pdoiv->query($sqliv);
+		
+		$igjVinculada="<select class='form-control' id='igreja' name='igreja' required>
+				   				<option selected ></option>";
+				   				
+				   			
+		while($dadosiv = $stmiv->fetch(PDO::FETCH_ASSOC)){
+		
+			$igjVinculada.="<option value='".$dadosiv['ID_IGREJA']."'>".$dadosiv['NM_IGREJA']."";
 		}
+		$igjVinculada.="</select>";
+	}
 		$prfUsuario=$usuario['id_perfil'];
 		if ($usuario ['id_perfil']!=1) {
 			$habilita="disabled";
@@ -111,37 +132,11 @@ $aut = Autenticador::instanciar();
       				<div class='col-sm-2'>
     					<label for='igreja' class='control-label'>Igreja:</label>
     				</div>
-      					<?php 
-      						if ($prfUsuario!=1){
-      							$pdoi = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
-      							$sqli = "select * from igreja where id_igreja={$igjLotado}";
-      							$stmi = $pdoi->query($sqli);
-      							$igjDef = $stmi->fetch(PDO::FETCH_ASSOC);
-      							$igjDes = $igjDef['NM_IGREJA'];
-      							$igjId = $igjDef['ID_IGREJA'];
-      							echo "	<div class='col-sm-4'>
-      										<input type='text' class='form-control data' id='nmigreja' name='nmigreja'  value='".$igjDes."' readonly='readonly'>
-											<input type='text' class='form-control data' id='igreja' name='igreja' style='display:none' value='".$igjId."' readonly='readonly'>
-      									</div>";
-      						}else{
-      							echo "	<div class='col-sm-4'>
-										<select class='form-control' id='igreja' name='igreja'>
-				   							<option value='".$idigreja."' selected>".$nmiIgreja."</option>";
-				   				
-				   					//Recupera as Regiões cadastradas
-					   				$pdoig = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
-					   				$sqlig = "select igj.* from igreja igj";
-					   				$stmig = $pdoig->query($sqlig);
-					   				//Monta a lista de regiões conforme recuperado do banco.
-					   				while($dadosi = $stmig->fetch(PDO::FETCH_ASSOC)){
-					   						
-					   					echo "<option value='".$dadosi['ID_IGREJA']."'>".$dadosi['NM_IGREJA']."</option>";
-					   				}
-					   			
-				   				echo "</select>
-    									</div>";
-      						}
-      					?>
+      					<div class="col-sm-4">
+      					<?php 	
+					   		echo $igjVinculada;
+					   	?>
+					</div>
       				
     			</div>
     			<br>

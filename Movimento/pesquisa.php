@@ -11,6 +11,30 @@ $aut = Autenticador::instanciar();
 
 if ($aut->esta_logado()) {
 	$usuario = $aut->pegar_usuario();
+	if ($usuario ['id_perfil']!=1) {
+		$pdoiv = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+		$sqliv = "select igj.*
+		from igreja igj where id_igreja='{$usuario ['id_igreja']}'";
+		$stmiv = $pdoiv->query($sqliv);
+		$dadosiv = $stmiv->fetch(PDO::FETCH_ASSOC);
+		$igjVinculada="<input type='text' class='form-control' style='display:none' id='igreja' name='igreja' value='".$dadosiv['ID_IGREJA']."'>
+						<input type='text' class='form-control' id='nmigreja' name='nmigreja' value='".$dadosiv['NM_IGREJA']."' readonly='readonly'>";
+	}else{
+		$pdoiv = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
+		$sqliv = "select igj.*
+				from igreja igj";
+		$stmiv = $pdoiv->query($sqliv);
+		
+		$igjVinculada="<select class='form-control' id='igreja' name='igreja' required>
+				   				<option selected ></option>";
+				   				
+				   			
+		while($dadosiv = $stmiv->fetch(PDO::FETCH_ASSOC)){
+		
+			$igjVinculada.="<option value='".$dadosiv['ID_IGREJA']."'>".$dadosiv['NM_IGREJA']."";
+		}
+		$igjVinculada.="</select>";
+	}
 }
 else {
 	$aut->expulsar();
@@ -83,22 +107,10 @@ else {
 	   	 				<label for="membro" class="control-label">Igreja:</label>
 	   	 			</div>
     				<div class="col-sm-4">
-				   		<select class='form-control' id='igreja' name='igreja' required>
-				   				<option selected ></option>
-				   				<?php
-				   					//Recupera as Regiões cadastradas
-					   				$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
-					   				$sql = "select igj.*
-					   				from igreja igj";
-					   				$stm = $pdo->query($sql);
-					   				//Monta a lista de regiões conforme recuperado do banco.
-					   				while($dados = $stm->fetch(PDO::FETCH_ASSOC)){
-					   						
-					   					echo "<option value='".$dados['ID_IGREJA']."'>".$dados['NM_IGREJA']."";
-					   				}
-					   			?>
-				   			</select>
-				   		</div>
+				   		<?php 	
+					   		echo $igjVinculada;
+					   	?>
+				   	</div>
 				</div>
 				<br/>
 				<br/>

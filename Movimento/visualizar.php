@@ -177,6 +177,7 @@ else {
 	
 		$(document).ready(function(){
 			$("input.data").mask("99/99/9999");
+			$('#valor').maskMoney();
 	    });
 
    </script>
