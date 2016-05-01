@@ -198,12 +198,12 @@ function verifData() */
 			//--------------------------------------------------------------------------------------------------------------------//
 			// Não permite informar movimentações do mês anterior após o dia 15 do mês corrente ou movimentações em datas futuras //
 			//--------------------------------------------------------------------------------------------------------------------//
-			//if (dtinform<>''){
-				if ((atual[1]>informada[1])||((atual[1]<informada[1])&&(informada[2]<atual[2])&&(atual[1]=='01'){
-					if (atual[0]>=15){
+			
+				if ((atual[1]>informada[1])||((atual[1]<informada[1])&&(informada[2]<atual[2])&&(atual[1]=='01'))){
+					if ((atual[0]>15)||((atual[1]-1)>informada[1])){
 						//Desabilita a opção Salvar e exibe mensagem
 						$('#ac').prop("disabled", true);
-						alert("Não podem ser realizados cadastros de movimentos referentes ao mês anterior após o dia 15.");
+						alert("O movimento só pode ser cadastrado dentro do próprio mês ou até o dia 15 do mês seguinte.");
 					}else{
 						//Habilita a opção Salvar
 						$('#ac').prop("disabled", false);
@@ -218,7 +218,7 @@ function verifData() */
 						$('#ac').prop("disabled", false);
 					}
 				}
-			//}
+			
 		}	
 			
    </script>	
