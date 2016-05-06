@@ -161,9 +161,7 @@ else {
 				<br/>
 				<div class="lead">
 			   		<div class="col-sm-offset-5 col-sm-3">
-			   			<a href="../Movimento/cadastro.php">
-			   				<button type="button" class="btn btn-lg btn-default" formaction="../Movimento/cadastro.php" name="resultado" value="null">Cadastrar</button>
-			   			</a>
+			   			<button type="button" class="btn btn-lg btn-default" formaction="../Movimento/cadastro.php" name="resultado" >Cadastrar</button>
 			   			<button type="submit" class="btn btn-lg col-sm-offset-1 btn-primary" id="acao">Pesquisar</button>	   	
 					</div>
 				</div>
