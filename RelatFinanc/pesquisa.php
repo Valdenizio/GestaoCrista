@@ -2,10 +2,10 @@
 header('Content-Type: text/html; charset=ISO-8859-1');
 //require_once 'movimento.php';
 require_once 'sessao.php';
-include_once 'crudMovimento.php';
+include_once 'crudRelatFin.php';
 require_once '../login/autenticador.php';
 
-$mant = ManterMovimento::instanciar();
+$mant = ManterRelatFin::instanciar();
 
 $aut = Autenticador::instanciar();
 
@@ -68,6 +68,7 @@ else {
     <body>
     
      <?php 	include '../login/topo.php';
+     	$anoatual = date("Y");
 		if (isset($_REQUEST['resultado'])){
     		$teste=$_REQUEST['resultado'];
     		if ($teste=="1"){
@@ -99,29 +100,30 @@ else {
 <br/>
     <div class="container col-sm-offset-3">
       <div class="starter-template">
-        <h2>Pesquisar Movimento</h2>
+        <h2>Relatório de Movimento Financeiro</h2>
         <!-- <p> -->
-        	<form action="../Movimento/resultado.php" method="get" target="_self">
+        	<form action="../RelatFinanc/resultado.php" method="get" target="_self">
         		<div class="lead">
 	   	 			<div class="col-sm-2">
-	   	 				<label for="membro" class="control-label">Igreja:<b>*</b></label>
+	   	 				<label for="membro" class="control-label">Igreja:</label>
 	   	 			</div>
     				<div class="col-sm-4">
 				   		<?php 	
 					   		echo $igjVinculada;
+					   		
 					   	?>
 				   	</div>
 				</div>
 				<br/>
 				<br/>
-        		<div class="lead">
+        		<!-- <div class="lead">
     				<div class="col-sm-2">
-    					<label for='tpMovimento' class='control-label'>Tipo de Movimento:</label>
+    					<label for='tpMovimento' class='control-label'>Tipo de Relatório:<b>*</b></label>
     				</div>
  			   		<div class='col-sm-4'>
 			   			<select class='form-control' id='tpmovimento' name='tpmovimento'>
-			   				<option selected ></option>
-			   				<?php
+			   				<option selected ></option> -->
+			   				<!--<//?php 
 			   					//Recupera as Regiões cadastradas
 				   				$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
 				   				$sql = "select * from tipo_movimento";
@@ -130,40 +132,59 @@ else {
 				   				while($dados = $stm->fetch(PDO::FETCH_ASSOC)){
 				   					echo "<option value='".$dados['id_tipo_movimento']."'>".$dados['ds_tipo_movimento']."</option>";
 				   				}
-				   			?>
-			   			</select>	   	
+				   			?> -->
+			   			<!-- </select>	   	
 					</div>
  				</div>
- 				<br>
+ 				<br> -->
         		<div class="lead">
         			<div class="col-sm-2">
-    					<label for="membro" class="control-label">Período:</label>
+    					<label for="movimento" class="control-label">Mês:</label>
     				</div>
-    				
+    				<div class="col-sm-2">
+      					<select class='form-control' id='mesRelat' name='mesRelat'>
+			   				<option selected ></option>
+			   				<option value=01 >Janeiro</option>
+			   				<option value=02 >Fevereiro</option>
+			   				<option value=03 >Março</option>
+			   				<option value=04 >Abril</option>
+			   				<option value=05 >Maio</option>
+			   				<option value=06 >Junho</option>
+			   				<option value=07 >Julho</option>
+			   				<option value=08 >Agosto</option>
+			   				<option value=09 >Setembro</option>
+			   				<option value=10>Outubro</option>
+			   				<option value=11>Novembro</option>
+			   				<option value=12>Dezembro</option>
+			   			</select>
+    				</div>
     			</div>
-    			<br>
+    			<br/>
     			<div class="lead">
-        			<div class="col-sm-2">
-    					<label for="movimento" class="control-label">Inicio:<b>*</b></label>
+    				<div class="col-sm-2">
+    					<label for="movimento" class="control-label">Ano:</label>
     				</div>
     				<div class="col-sm-2">
-      					<input type="text" class="form-control data" id="dtmovinicio" name="dtmovinicio" required>
-      					
-    				</div>
-    				<div class="col-sm-2">
-    					<label for="movimento" class="control-label">Fim:<b>*</b></label>
-    				</div>
-    				<div class="col-sm-2">
-      					<input type="text" class="form-control data" id="dtmovfim" name="dtmovfim" required>
+      					<select class='form-control' id='anoRelat' name='anoRelat'>
+			   				<option value='<?php echo $anoatual;?>' selected ><?php echo $anoatual;?></option>
+			   				<?php 
+		   						$ref=2010;
+		   						while($ref < $anoatual ){
+		   							$anoatual--;
+		   							echo "<option value='".$anoatual."'>".$anoatual."</option>";
+		   							
+		   						}	
+			   				?>
+			   			</select>
       					
     				</div>
  				</div>
  				<br/>
 				<br/>
 				<div class="lead">
-			   		<div class="col-sm-offset-5 col-sm-3">
-			   			<a href="../Movimento/cadastro.php" class="btn btn-lg btn-default">Cadastrar</a>
-			   			<button type="submit" class="btn btn-lg col-sm-offset-1 btn-primary" id="acao">Pesquisar</button>	   	
+			   		<div class="col-sm-offset-5 col-sm-4">
+			   			<!-- <button type="button" class="btn btn-lg btn-default" formaction="../Movimento/cadastro.php" name="resultado" >Cadastrar</button> -->
+			   			<button type="submit" class="btn btn-lg col-sm-offset-1 btn-primary" id="acao">Gerar Relatório</button>	   	
 					</div>
 				</div>
         	</form>
@@ -188,4 +209,8 @@ else {
     </script>   
     </body>
 </html>
-
+<?php 
+			   						$mesatual = date("m");
+			   						$anoatual = date("Y");
+			   						
+			   					?>

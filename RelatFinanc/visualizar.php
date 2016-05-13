@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=utf-8');
 //require_once 'membro.php';
 require_once 'sessao.php';
-require_once 'crudMovimento.php';
+require_once 'crudRelatFin.php';
 require_once '../login/autenticador.php';
 
 $mant = ManterMovimento::instanciar();
@@ -76,8 +76,7 @@ else {
      	$par="?".$paramPesquisa1."&".$paramPesquisa2."&".$paramPesquisa3."&".$paramPesquisa4;
    
      	$pdo = new PDO('mysql:host=localhost;dbname=gc;charset=latin1','root','');
-	  	$sql = "select mov.id_movimento, DATE_FORMAT( mov.dt_movimento, '%d/%m/%Y' ) as data_movimento
-	  			, DATE_FORMAT( mov.dt_reg_movimento, '%d/%m/%Y' ) as dt_reg_movimento,
+	  	$sql = "select mov.id_movimento, mov.dt_movimento, mov.dt_reg_movimento,
     			mov.vl_movimento, tpm.ds_tipo_movimento, igj.nm_igreja, mov.id_igreja, mov.id_tipo_movimento
 	  			from movimento mov left join tipo_movimento tpm 
     			on mov.id_tipo_movimento=tpm.id_tipo_movimento
@@ -89,7 +88,7 @@ else {
      	$dados = $stm->fetch(PDO::FETCH_ASSOC);
      		
      	$idmovimento=$dados['id_movimento'];
-     	$dtmovimento=$dados['data_movimento'];
+     	$dtmovimento=$dados['dt_movimento'];
      	$dtregmovimento=$dados['dt_reg_movimento'];
      	$nmIgreja=$dados['nm_igreja'];
      	$dstipomov=$dados['ds_tipo_movimento'];

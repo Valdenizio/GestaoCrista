@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=ISO-8859-1');
 require_once 'membro.php';
 require_once 'sessao.php';
-require_once 'crudMovimento.php';
+require_once 'crudRelatFin.php';
 require_once '../login/autenticador.php';
 
 $mant = ManterMovimento::instanciar();
@@ -111,14 +111,14 @@ function verifData() */
     					<label for="membro" class="control-label">Data do Movimento:<b>*</b></label>
     				</div>
     				<div class="col-sm-2">
-      					<input type="text" class="form-control data" id="dtmovimento" name="dtmovimento" onBlur="verifData()" required>
+      					<input type="text" class="form-control data" id="dtmovimento" name="dtmovimento" onBlur="verifData()" >
       				</div>
       			</div>
       			<br>
       			<br>
       			<div class="lead">
       				<div class='col-sm-2'>
-    					<label for='igreja' class='control-label'>Igreja:<b>*</b></label>
+    					<label for='igreja' class='control-label'>Igreja:</label>
     				</div>
     				<div class="col-sm-4">
       					<?php 	
@@ -132,7 +132,7 @@ function verifData() */
     					<label for='tpMovimento' class='control-label'>Tipo de Movimento:<b>*</b></label>
     				</div>
  			   		<div class='col-sm-4'>
-			   			<select class='form-control' id='tpmovimento' name='tpmovimento' required>
+			   			<select class='form-control' id='tpmovimento' name='tpmovimento'>
 			   				<option selected ></option>
 			   				<?php
 			   					//Recupera as Regiões cadastradas
@@ -150,10 +150,10 @@ function verifData() */
  				<br>
  				<div class="lead">
         			<div class="col-sm-2">
-    					<label for="movimento" class="control-label">Valor:<b>*</b></label>
+    					<label for="movimento" class="control-label">Valor:</label>
     				</div>
     				<div class="col-sm-2">
-      					<input type="text" class="form-control vlr" id="valor" name="valor" required>
+      					<input type="text" class="form-control vlr" id="valor" name="valor" >
       				</div>
     			</div>
  			<br/>
@@ -198,7 +198,8 @@ function verifData() */
 			//--------------------------------------------------------------------------------------------------------------------//
 			// Não permite informar movimentações do mês anterior após o dia 15 do mês corrente ou movimentações em datas futuras //
 			//--------------------------------------------------------------------------------------------------------------------//
-			
+				//Testa se o mês atual é maior que o informado OU
+				//se o mês atual é menor que o informado e o ano atual é maior que o informado e se o mês atual é igual a 01
 				if ((atual[1]>informada[1])||((atual[1]<informada[1])&&(informada[2]<atual[2])&&(atual[1]=='01'))){
 					if ((atual[0]>15)||((atual[1]-1)>informada[1])){
 						//Desabilita a opção Salvar e exibe mensagem
@@ -209,7 +210,9 @@ function verifData() */
 						$('#ac').prop("disabled", false);
 					}			
 				}else{
-					if ((((informada[0]>atual[0])&&(informada[1]==atual[1]))||(informada[1]>atual[1]))&& informada[0]>=1){
+					//Verifica se o dia informado é maior que o dia atual e o mês informado é igual ao mês atual OU
+					//se o mês informado é maior que o mês atual e o dia informado é maior ou igual a 1
+					if ((((informada[0]>atual[0])&&(informada[1]==atual[1]))||(informada[1]>atual[1])) && informada[0]>=01){
 						//Desabilita a opção Salvar e exibe mensagem
 						$('#ac').prop("disabled", true);
 						alert("Não é permitido informar movimentações futuras.");
